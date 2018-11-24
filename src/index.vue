@@ -2,7 +2,14 @@
 <div class="st-layout">
   <div class="header">simter-vue-desktop</div>
   <div class="middle">
-    <div class="content">{{test}}</div>
+    <div class="content">
+      <st-shortcut
+        v-for="(s, index) of shortcuts"
+        :key="index"
+        :label="s.label"
+        :icon="s.icon">
+      </st-shortcut>
+    </div>
     <div class="sidebar">Sidebar</div>
   </div>
   <div class="footer">©2017 simter-vue-desktop</div>
@@ -10,12 +17,21 @@
 </template>
 
 <script>
+import stShortcut from "./components/shortcut.vue";
+
 export default {
   data() {
     return {
-      test: "test"
+      test: "test",
+      shortcuts: (n => {
+        const ss = [];
+        for (let i = 0; i < n; i++)
+          ss.push({ label: (i < 5 ? `User ${i + 1}` : `User ${i + 1} abc def`), icon: "st-icon-user" });
+        return ss;
+      })(35)
     };
-  }
+  },
+  components: { stShortcut }
 };
 </script>
 
